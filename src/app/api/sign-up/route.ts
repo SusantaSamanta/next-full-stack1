@@ -4,10 +4,16 @@ import UserModel from "@/model/User";
 
 export async function POST(request: Request) {
     await dbConnect();
-
     // return response.json({success: false});
     try {
         const { username, email, password } = await request.json();
+        if (!username || !email || !password) {
+            return Response.json(
+                { success: false, message: "Username email password are required" },
+                { status: 400 }
+            );
+        }
+        console.log("ok")
         const userExistAndVerified = await UserModel.findOne({ username, isVerified: true });
 
         if (userExistAndVerified) {
@@ -58,7 +64,7 @@ export async function POST(request: Request) {
 
         // sendRegistrationMail()
         console.log("Verification Code : ", verifyOTP);
-        
+
         return Response.json(
             { success: true, message: "Registration successful verification mail send" },
             { status: 201 }
@@ -68,7 +74,7 @@ export async function POST(request: Request) {
 
 
     } catch (error) {
-        console.log("Error for signup,.......");
+        console.log("Error for signup.......");
         return Response.json(
             { success: false, message: "Error during registration" },
             { status: 500 }

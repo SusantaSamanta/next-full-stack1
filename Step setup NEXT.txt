@@ -8,7 +8,19 @@
       
 ////////    3. Create a folder : lib //////////
       1. Create a file : dbConnect.ts
-      2. Connect db 
+      2. Connect db with : dbConnect function 
+            In next for each route we have to connect db for this reason we need an optimization 
+            that not need to connect if the connection is already created.
+
+////////    4. Create a folder inside : app/api/sign-up     //////////
+                  1. one file route.ts : implement sign-up logic in this file 
+                  signup api url will be : 3000/api/sign-up
+
+///////////////    4. Create a folder inside : app/api/auth/[...nextauth]/options.ts    ///////////////
+                                                                         /route.ts    
+                    1. npm i next-auth
+                    
+
 
 
 
