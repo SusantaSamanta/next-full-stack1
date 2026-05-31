@@ -1,0 +1,47 @@
+
+/////////    1. Install Next   ////////
+
+////////    2. Create a folder called "model" //////////
+      1. Create a file : User.ts
+      2. Install mongoose
+      3. Create UserModel and export
+      
+////////    3. Create a folder : lib //////////
+      1. Create a file : dbConnect.ts
+      2. Connect db with : dbConnect function 
+            In next for each route we have to connect db for this reason we need an optimization 
+            that not need to connect if the connection is already created.
+
+////////    4. Create a folder inside : app/api/sign-up     //////////
+                  1. one file route.ts : implement sign-up logic in this file 
+                  signup api url will be : 3000/api/sign-up
+
+///////////    5. Create a folder inside : app/api/auth/[...nextauth]/options.ts    ///////////////
+                                                                         /route.ts    
+                    1. npm i next-auth
+                    
+////////    6. Create a file inside : src/middleware.ts     //////////
+
+////////    7. Create a folder inside : src/context/AuthProvider.ts     //////////
+                  1. Where AuthProvider wrap children inside <SessionProvider></SessionProvider>
+                  2. Inside /src/app/layout.tsx :
+                        wrap body by AuthProvider
+                        <AuthProvider>
+                              <body className="min-h-full flex flex-col">{children}</body>
+                        </AuthProvider>
+
+////////    8. Create a folder inside : src/app/(auth)/sign-in/page.tsx     ///////////
+                  for frontend sign-in page 
+
+////////    9. Create a folder inside : src/app/api/check-username-unique/route.ts     ///////////
+                  check user entered name is unique or not
+
+////////    10. Create a folder inside : src/app/api/verify-otp/route.ts     ///////////
+                  verify user otp
+            
+////////    11. Create a folder inside : src/app/api/accept-messages/route.ts     ///////////
+                  post : for update user message status
+                  get : for send user message status
+
+
+
