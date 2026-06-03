@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 
+// route :  /api/verify-otp
 export const POST = async (request: Request) => {
     await dbConnect();
     try {

@@ -1,9 +1,17 @@
 import UserModel from "@/model/User";
 import dbConnect from "@/lib/dbConnect";
 
+function wait(): any {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("ok");
+        }, 1000);
+    })
+}
 //               /api/check-username-unique
 export async function GET(request: Request) {
     await dbConnect();
+    await wait();
     try {
         const url = new URL(request.url);
         const username = url.searchParams.get('username');
@@ -13,7 +21,7 @@ export async function GET(request: Request) {
                 message: "Username require."
             }, { status: 400 });
         }
-        const user = await UserModel.findOne({ username ,isVerified: true})
+        const user = await UserModel.findOne({ username, isVerified: true })
         if (user) {
             return Response.json({
                 success: false,

@@ -16,13 +16,13 @@ export const GET = async (request: Request) => {
         }, { status: 401 });
     }
     // const userId = user._id;
-    const userId = new mongoose.Types.ObjectId(user._id);
+    const userId = new mongoose.Types.ObjectId(user._id); // make the id to mongodb object id for helping aggregate fun 
     try {
-        const isUser = await UserModel.aggregate([
-            { $match: {id: userId}},
-            {$unwind: '$messages'},
-            {$sort: {'messages.createdAt': -1}},
-            {$group: {_id: '$_id', messages: {$push: '$messages'}}}
+        const isUser = await UserModel.aggregate([ // it is use for extract messages in a descending order and send to frontend 
+            { $match: { id: userId } },
+            { $unwind: '$messages' },
+            { $sort: { 'messages.createdAt': -1 } },
+            { $group: { _id: '$_id', messages: { $push: '$messages' } } } // all massages are grouping into same 
         ])
         if (!isUser || isUser.length === 0) {
             return Response.json({

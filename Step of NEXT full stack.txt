@@ -43,5 +43,36 @@
                   post : for update user message status
                   get : for send user message status
 
+////////    12. Create a folder inside : src/app/api/get-messages/route.ts     ///////////
+                  send user messages who login
+
+////////    13. Create a folder inside : src/app/api/send-messages/route.ts     ///////////
+                  user send message and username
+
+////////    14.             install :           ///////////
+                        1. npx shadcn@latest init
+                        2. npm i axios
+                        3. npm install react-hook-form 
+                        4. npm install zod 
+                        5. npm install @hookform/resolvers
+                        6. npm install react-hook-form zod @hookform/resolvers
+                        7. npm install usehooks-ts
+                        8. npx shadcn@latest add input
+                        9. npx shadcn@latest add label
+
+//////////x/////////////      Add toast in ui     //////////////////////
+                        1. npx shadcn@latest add sonner
+                        2. In layout.tsx  : 
+                              1. import { Toaster } from "@/components/ui/sonner"
+                              2. add this component inside 
+                              <body>{children}
+                                    <Toaster /> 
+                              </body>
+                              3. 
+
+
+////////    15. Create a folder inside : src/app/(auth)/sign-up/page.tsx     ///////////
+                  implement sign up frontend 
+
 
 
