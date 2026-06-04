@@ -16,12 +16,10 @@ export const authOptions: NextAuthOptions = {
             async authorize(credential: any): Promise<any> { // create custom authorization fun 
                 await dbConnect();
                 try {
+                    // console.log(credential.identifier)
                     const user = await UserModel.findOne({
-                        $or: [
-                            { email: credential.identifier.email },   // this credential (nextAuth) give input email 
-                            // { username: credential.identifier.username }  // it not user for now.
-                        ]
-                    });
+                        email: credential.identifier   // this credential (nextAuth) give input email from frontend
+                    }); 
 
                     if (!user) { // if we not find input email in db 
                         throw new Error("No user found with this email");
@@ -57,7 +55,7 @@ export const authOptions: NextAuthOptions = {
             return token;
         },
         async session({ session, token }) {
-            if(token){
+            if (token) {
                 session.user._id = token._id;
                 session.user.username = token.username;
                 session.user.isVerified = token.isVerified;

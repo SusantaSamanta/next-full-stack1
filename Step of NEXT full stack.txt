@@ -32,6 +32,7 @@
 
 ////////    8. Create a folder inside : src/app/(auth)/sign-in/page.tsx     ///////////
                   for frontend sign-in page 
+                  where (auth) not create any route. we directly access sign-in by '3000/sign-in' 
 
 ////////    9. Create a folder inside : src/app/api/check-username-unique/route.ts     ///////////
                   check user entered name is unique or not
@@ -59,8 +60,9 @@
                         7. npm install usehooks-ts
                         8. npx shadcn@latest add input
                         9. npx shadcn@latest add label
+                        10. npx shadcn@latest add field
 
-//////////x/////////////      Add toast in ui     //////////////////////
+///////////////////////      Add toast in ui     //////////////////////
                         1. npx shadcn@latest add sonner
                         2. In layout.tsx  : 
                               1. import { Toaster } from "@/components/ui/sonner"
@@ -68,11 +70,34 @@
                               <body>{children}
                                     <Toaster /> 
                               </body>
-                              3. 
+                              3. import { toast } from "sonner";
+                              5. toast.success(res.data.message);
 
 
 ////////    15. Create a folder inside : src/app/(auth)/sign-up/page.tsx     ///////////
                   implement sign up frontend 
+
+
+////////    16. Create a folder inside : src/app/(auth)/verify/[email]/page.tsx     ///////////
+                  this [email] is hold an value which we set from signup 
+                                                      'router.replace(`/verify/${data.email}`)'
+                              in verify route we access this value(email) by this:
+                                    const params = useParams();
+                                    const email = decodeURIComponent(params.email);
+
+////////    17. Create a folder inside : src/app/(auth)//page.tsx     ///////////
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
