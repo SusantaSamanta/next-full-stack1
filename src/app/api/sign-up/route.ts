@@ -14,7 +14,6 @@ export async function POST(request: Request) {
                 { status: 400 }
             );
         }
-        console.log("ok")
         const userExistAndVerified = await UserModel.findOne({ username, isVerified: true });
 
         if (userExistAndVerified) {

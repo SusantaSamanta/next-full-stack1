@@ -50,6 +50,7 @@ export const POST = async (request: Request) => {
 
 export const GET = async (request: Request) => {
     await dbConnect();
+    console.log('first')
     const session = await getServerSession(authOptions); // this session came from /api/auth/[...nextauth]/options
     const user: User = session?.user as User; // this user object inside session we insert from token 
     if (!session || !session.user) {
@@ -58,9 +59,11 @@ export const GET = async (request: Request) => {
             message: "Not authenticated user"
         }, { status: 401 });
     }
+    console.log('second')
     const userId = user._id;
     try {
         const isUser = await UserModel.findById(userId)
+        console.log(isUser, "third")
         if (!isUser) {
             return Response.json({
                 success: false,

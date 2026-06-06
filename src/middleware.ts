@@ -22,7 +22,8 @@ export async function middleware(request: NextRequest) {
 
     if ( /// no token and user in /dashboard redirect to sign-in 
         !token &&
-        url.pathname.startsWith("/dashboard")
+        url.pathname.startsWith("/dashboard") ||
+        url.pathname.startsWith("/profile") 
     ) {
         return NextResponse.redirect(
             new URL("/sign-in", request.url)
@@ -38,5 +39,6 @@ export const config = { // Middleware is check before this routes
         "/sign-up",
         "/verify",
         "/dashboard/:path*",
+        "/profile"
     ],
 };

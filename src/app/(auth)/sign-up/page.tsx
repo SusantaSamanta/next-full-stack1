@@ -183,7 +183,7 @@ const page = () => {
             </Field>
 
             <p className='text-center text-sm'>Already have account
-              <Link href={'/sign-in'} className='text-blue-700'> sign-in</Link>
+              <Link href={'/sign-in'} className='text-blue-700'> Login</Link>
             </p>
 
           </form>

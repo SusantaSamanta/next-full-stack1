@@ -52,7 +52,7 @@ const page = () => {
             // console.log(res.error);
         }
         if(res?.url){ // mean sign in successful by next-auth
-            toast.error("Sign in successfully.");
+            toast.success("Sign in successfully.");
             setTimeout(() => {
                 router.replace("/dashboard");
             }, 500);
@@ -72,7 +72,7 @@ const page = () => {
         <div className='w-full h-screen md:h-auto max-w-md border rounded-2xl p-6 shadow-xl'>
 
           <form onSubmit={form.handleSubmit(onSubmit)}>
-            <h1 className='mb-4 text-2xl font-bold text-center'>Sign in</h1>
+            <h1 className='mb-4 text-2xl font-bold text-center'>Login</h1>
             <FieldSet>
               <FieldLegend>Please signin</FieldLegend>
               <FieldDescription>Enter all the details for login</FieldDescription>
@@ -107,11 +107,11 @@ const page = () => {
             </FieldSet>
             <Field>
               <Button type='submit' className={`my-6 w-full py-5 ${isSubmitting ? "bg-gray-600" : " bg-black"}`}>
-                {isSubmitting && <Loader2 className='animate-spin' />}Sign in
+                {isSubmitting && <Loader2 className='animate-spin' />}Login
               </Button>
             </Field>
 
-            <p className='text-center text-sm'>Already have account
+            <p className='text-center text-sm'>Don't have account
               <Link href={'/sign-up'} className='text-blue-700'> sign-up</Link>
             </p>
 
