@@ -85,10 +85,34 @@
                                     const params = useParams();
                                     const email = decodeURIComponent(params.email);
 
-////////    17. Create a folder inside : src/app/(auth)//page.tsx     ///////////
+////////    17. Create a folder inside : src/app/(app)/dashboard/page.tsx     ///////////
+
+                  
+
+////////    18. Create a folder inside : src/components/Navbar.tsx     ///////////
+                  useSession for session 
+                  Add <Navbar/> inside src/layout 
+                  <body>
+                        <Navbar/>
+                        {children}
+                  </body>
+
+////////    19. Create a file : src/components/MessageCard.tsx     ///////////
+                  1. install card : npx shadcn@latest add card
+                  2. install alert : npx shadcn@latest add alert-dialog
 
 
+/////////////////  20 setup ReduxToolkit   ////////////////////
+                  1. create a folder : src/store  : one file index.ts
+                  2. create a folder : src/store/slice
+                        create a slice like MessageSlice
 
+                        index.ts create store 
+
+                              Provider is use store in layout.tsx  But this make error : because app/layout.tsx is a Server Component by default in Next.js.
+                                    so we create an custom provider called : /src/providers/ReduxProvider.tsx
+                                          and use it in app/layout.tsx
+                                          
 
 
 

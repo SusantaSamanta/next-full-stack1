@@ -3,6 +3,8 @@ import { Geist, Geist_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/context/AuthProvider";
 import { Toaster } from "@/components/ui/sonner"
+import Navbar from "@/components/Navbar";
+import ReduxProvider from "@/providers/ReduxProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,8 +36,12 @@ export default function RootLayout({
       className={`${outfit.className} ${outfit.className} h-full antialiased`}
     >
       <AuthProvider>
-        <body className="min-h-full flex flex-col">{children}
-          <Toaster />
+        <body className="min-h-full flex flex-col">
+          <ReduxProvider>
+            <Navbar />
+            {children}
+            <Toaster />
+          </ReduxProvider>
         </body>
       </AuthProvider>
     </html>
