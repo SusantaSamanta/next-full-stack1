@@ -4,10 +4,21 @@ import dbConnect from "@/lib/dbConnect";
 import UserModel from "@/model/User";
 import { User } from "next-auth";
 
+
+function wait(): any {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("ok");
+        }, 1000);
+    })
+}
+
+
 ///    3000/api/accepting-messages : where we receive login userId from session and change his message accepting status true or false
 
 export const POST = async (request: Request) => {
     await dbConnect();
+    await wait();
     const session = await getServerSession(authOptions); // this session came from /api/auth/[...nextauth]/options
     const user: User = session?.user as User; // this user object inside session we insert from token 
     if (!session || !session.user) {
@@ -18,6 +29,13 @@ export const POST = async (request: Request) => {
     }
     const userId = user._id;
     const { acceptMessages } = await request.json();
+
+    // if (!acceptMessages) {
+    //     return Response.json({
+    //         success: false,
+    //         message: "Require message accepting status."
+    //     }, { status: 401 });
+    // }
     try {
         const updatedUser = await UserModel.findByIdAndUpdate(
             userId,
@@ -46,11 +64,10 @@ export const POST = async (request: Request) => {
 }
 
 
-///    3000/api/accepting-messages : where we receive login userId from session and send his current message accepting status 
+///    3000/api/accept-messages : where we receive login userId from session and send his current message accepting status 
 
 export const GET = async (request: Request) => {
     await dbConnect();
-    console.log('first')
     const session = await getServerSession(authOptions); // this session came from /api/auth/[...nextauth]/options
     const user: User = session?.user as User; // this user object inside session we insert from token 
     if (!session || !session.user) {
@@ -59,11 +76,9 @@ export const GET = async (request: Request) => {
             message: "Not authenticated user"
         }, { status: 401 });
     }
-    console.log('second')
     const userId = user._id;
     try {
-        const isUser = await UserModel.findById(userId)
-        console.log(isUser, "third")
+        const isUser = await UserModel.findById(userId);
         if (!isUser) {
             return Response.json({
                 success: false,

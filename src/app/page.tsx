@@ -1,67 +1,203 @@
 import MessageCard from "@/components/MessageCard";
 import Image from "next/image";
+import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <main className="min-h-screen">
+      <div className='max-w-400 w-full mt-12 px-4 md:px-40 pt-4 md:pt-10 md:pb-20 flex flex-col border-0'>
+        {/* Hero Section */}
+        <section className="container mx-auto px-4 pt-8 md:pt-15 text-center border-0">
+          <h1 className="text-3xl md:text-5xl font-bold mb-6">
+            Welcome to Connect.Hub
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+
+          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-4 md:mb-8">
+            Receive honest anonymous messages from friends, colleagues,
+            and anyone who has something meaningful to share.
           </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="/dashboard"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Dashboard
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-        <MessageCard />
-      </main>
-    </div>
+
+          <div className="flex justify-center gap-4">
+            <button className="px-4 py-2 md:px-6 md:py-3 rounded-md bg-black text-white hover:opacity-90">
+              Get Started
+            </button>
+
+            <button className="px-6 py-3 rounded-md border">
+              Learn More
+            </button>
+          </div>
+        </section>
+
+        {/* Sample Messages */}
+        <section className="container mx-auto pt-12 md:pt-18 border-0">
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-6 md:mb-10">
+            Sample Messages
+          </h2>
+
+          <div className="grid gap-3 md:gap-6 md:grid-cols-3">
+            <div className="rounded-xl border p-5">
+              <h3 className="font-semibold">Anonymous</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                2 minutes ago
+              </p>
+              <p>You are doing an amazing job. Keep going!</p>
+            </div>
+
+            <div className="rounded-xl border p-5">
+              <h3 className="font-semibold">Anonymous</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                5 minutes ago
+              </p>
+              <p>Your Next.js projects are getting better every day.</p>
+            </div>
+
+            <div className="rounded-xl border p-5">
+              <h3 className="font-semibold">Anonymous</h3>
+              <p className="text-sm text-muted-foreground mb-4">
+                10 minutes ago
+              </p>
+              <p>I really like your portfolio design.</p>
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works */}
+        <section className=" py-16">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-bold text-center mb-10">
+              How It Works
+            </h2>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-xl border bg-background p-6">
+                <h3 className="text-xl font-semibold mb-3">
+                  Create Account
+                </h3>
+                <p className="text-muted-foreground">
+                  Sign up and create your personal profile.
+                </p>
+              </div>
+
+              <div className="rounded-xl border bg-background p-6">
+                <h3 className="text-xl font-semibold mb-3">
+                  Share Your Link
+                </h3>
+                <p className="text-muted-foreground">
+                  Send your unique anonymous message link to friends.
+                </p>
+              </div>
+
+              <div className="rounded-xl border bg-background p-6">
+                <h3 className="text-xl font-semibold mb-3">
+                  Receive Messages
+                </h3>
+                <p className="text-muted-foreground">
+                  Get anonymous feedback directly in your inbox.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Features */}
+        <section className="container mx-auto px-6 py-16">
+          <h2 className="text-3xl font-bold text-center mb-10">
+            Features
+          </h2>
+
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div className="rounded-xl border p-6">
+              <h3 className="font-semibold mb-2">
+                Anonymous Messaging
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Receive messages without revealing the sender.
+              </p>
+            </div>
+
+            <div className="rounded-xl border p-6">
+              <h3 className="font-semibold mb-2">
+                Message Inbox
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Organize and manage all received messages.
+              </p>
+            </div>
+
+            <div className="rounded-xl border p-6">
+              <h3 className="font-semibold mb-2">
+                Message Control
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Enable or disable message receiving anytime.
+              </p>
+            </div>
+
+            <div className="rounded-xl border p-6">
+              <h3 className="font-semibold mb-2">
+                Easy Sharing
+              </h3>
+              <p className="text-muted-foreground text-sm">
+                Copy and share your unique profile link instantly.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        {/* <section className="bg-muted/40 py-16">
+          <div className="container mx-auto px-6">
+            <h2 className="text-3xl font-bold text-center mb-10">
+              What Users Say
+            </h2>
+
+            <div className="grid gap-6 md:grid-cols-3">
+              <div className="rounded-xl border bg-background p-6">
+                <p className="mb-4">
+                  "Great platform for collecting honest feedback."
+                </p>
+                <h4 className="font-semibold">Alex</h4>
+              </div>
+
+              <div className="rounded-xl border bg-background p-6">
+                <p className="mb-4">
+                  "Simple, clean, and very useful."
+                </p>
+                <h4 className="font-semibold">Sarah</h4>
+              </div>
+
+              <div className="rounded-xl border bg-background p-6">
+                <p className="mb-4">
+                  "I use it regularly with my friends."
+                </p>
+                <h4 className="font-semibold">John</h4>
+              </div>
+            </div>
+          </div>
+        </section> */}
+
+        {/* CTA */}
+        <section className="container mx-auto px-6 py-20 text-center">
+          <h2 className="text-4xl font-bold mb-4">
+            Ready to Receive Anonymous Messages?
+          </h2>
+
+          <p className="text-muted-foreground mb-8">
+            Create your free account and start receiving feedback today.
+          </p>
+
+          <button className="px-8 py-3 rounded-md bg-black text-white hover:opacity-90">
+            Create Free Account
+          </button>
+        </section>
+
+        {/* Footer */}
+        <footer className="border-t py-8">
+          <div className="container mx-auto px-6 text-center text-sm text-muted-foreground">
+            © 2026 Connect.Hub. All rights reserved.
+          </div>
+        </footer>
+      </div>
+    </main>
   );
 }

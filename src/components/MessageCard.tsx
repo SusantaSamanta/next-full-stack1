@@ -1,3 +1,4 @@
+'use client'
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -21,22 +22,60 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import { useState } from "react";
+import { toast } from "sonner";
+import axios, { AxiosError } from "axios";
+import { useSession } from "next-auth/react";
+import { useDispatch } from "react-redux";
+import { deleteMessage } from "@/store/slices/MessageSlice";
+
+
+const MessageCard = ({ messageObj }: any) => {
+
+    const dispatch = useDispatch();
+
+    const [messageOpen, setMessageOpen] = useState(false);
+    const { data: session, status } = useSession();
+    let name = session?.user.username;
+
+    if (!name) return;
+
+    const handleMessageDelete = async (_id: string) => {
+        try {
+            const { data } = await axios.delete('/api/delete-message', {
+                data: {
+                    username: name,
+                    messageId: _id,
+                },
+            });
+            if (data.success) {
+                toast.success(data.message);
+                dispatch(deleteMessage(_id));
+            }
+        } catch (error) {
+            const apiErr: any = error as AxiosError;
+            console.log(apiErr, 'error')
+            toast.error(apiErr.response?.data.message ?? "User message not get");
+        }
+    }
 
 
 
 
-const MessageCard = () => {
+
     return (
         <>
-            <Card className="w-70">
+            <Card className="w-full md:w-70 h-36">
                 <CardHeader>
-                    <CardTitle>Card Title</CardTitle>
-                    <CardDescription>Card Description</CardDescription>
+                    <CardTitle className="text-base">{messageObj.sender}</CardTitle>
+                    <CardDescription className="text-[12px]">
+                        {new Date(messageObj.createdAt).toLocaleString()}
+                    </CardDescription>
                     <CardAction>
-                        
+
                         <AlertDialog>
                             <AlertDialogTrigger asChild>
-                                <Button variant="destructive" className="bg-[#ffffff00]">
+                                <Button variant="destructive" className="bg-[#ffffff00] cursor-pointer">
                                     <Trash2Icon className="w-5 h-5" />
                                 </Button>
                             </AlertDialogTrigger>
@@ -53,19 +92,39 @@ const MessageCard = () => {
                                 </AlertDialogHeader>
                                 <AlertDialogFooter>
                                     <AlertDialogCancel variant="outline">Cancel</AlertDialogCancel>
-                                    <AlertDialogAction variant="destructive">Delete</AlertDialogAction>
+                                    <AlertDialogAction variant="destructive" onClick={() => handleMessageDelete(messageObj._id)} >
+                                        Delete
+                                    </AlertDialogAction>
                                 </AlertDialogFooter>
                             </AlertDialogContent>
                         </AlertDialog>
 
                     </CardAction>
                 </CardHeader>
-                <CardContent>
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum facilis velit ullam minus voluptatem reprehenderit aliquid error et quod saepe.</p>
+                <CardContent className="text-base" onClick={() => {
+                    setMessageOpen(true)
+                }}>
+                    <p className="line-clamp-2 cursor-pointer">
+                        {messageObj.content}
+                    </p>
                 </CardContent>
-                {/* <CardFooter>
-                    <p>Card Footer</p>
-                </CardFooter> */}
+                <AlertDialog open={messageOpen} onOpenChange={setMessageOpen}>
+                    <AlertDialogContent>
+                        <AlertDialogHeader>
+                            <AlertDialogTitle>{messageObj.sender}</AlertDialogTitle>
+                            <AlertDialogDescription asChild>
+                                <div className="whitespace-pre-wrap text-foreground">
+                                    {messageObj.content}
+                                </div>
+                            </AlertDialogDescription>
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+                            {/* <AlertDialogAction variant="destructive" className="hidden">Delete</AlertDialogAction> */}
+                            <AlertDialogCancel className="">Cancel</AlertDialogCancel>
+                        </AlertDialogFooter>
+                    </AlertDialogContent>
+                </AlertDialog>
             </Card>
         </>
     )

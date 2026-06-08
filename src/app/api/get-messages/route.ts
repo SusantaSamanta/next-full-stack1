@@ -1,45 +1,72 @@
-import dbConnect from "@/lib/dbConnect"
+import dbConnect from "@/lib/dbConnect";
 import { getServerSession, User } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
-import mongoose from "mongoose";
 import UserModel from "@/model/User";
 
 
-export const GET = async (request: Request) => {
-    await dbConnect();
-    const session = await getServerSession(authOptions); // this session came from /api/auth/[...nextauth]/options
-    const user: User = session?.user as User; // this user object inside session we insert from token 
-    if (!session || !session.user) {
-        return Response.json({
-            success: false,
-            message: "Not authenticated user"
-        }, { status: 401 });
-    }
-    // const userId = user._id;
-    const userId = new mongoose.Types.ObjectId(user._id); // make the id to mongodb object id for helping aggregate fun 
-    try {
-        const isUser = await UserModel.aggregate([ // it is use for extract messages in a descending order and send to frontend 
-            { $match: { id: userId } },
-            { $unwind: '$messages' },
-            { $sort: { 'messages.createdAt': -1 } },
-            { $group: { _id: '$_id', messages: { $push: '$messages' } } } // all massages are grouping into same 
-        ])
-        if (!isUser || isUser.length === 0) {
-            return Response.json({
-                success: false,
-                message: "Not able to get user messages."
-            }, { status: 401 });
-        }
-        return Response.json({
-            success: true,
-            messages: isUser[0].messages
-        }, { status: 200 });
 
-    } catch (error) {
-        console.log("Not able to send user messages.");
-        return Response.json({
-            success: false,
-            message: "Not able to send user messages."
-        }, { status: 500 });
-    }
+function wait(): any {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve("ok");
+        }, 1000);
+    })
 }
+
+
+export const GET = async () => {
+  await wait();
+  try {
+    await dbConnect();
+
+    const session = await getServerSession(authOptions);
+    const user: User = session?.user as User;
+
+    if (!session || !session.user) {
+      return Response.json(
+        {
+          success: false,
+          message: "Not authenticated user",
+        },
+        { status: 401 }
+      );
+    }
+
+    const foundUser = await UserModel.findById(user._id);
+
+    if (!foundUser) {
+      return Response.json(
+        {
+          success: false,
+          message: "User not found",
+        },
+        { status: 404 }
+      );
+    }
+
+    const messages = [...foundUser.messages].sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() -
+        new Date(a.createdAt).getTime()
+    );
+
+    return Response.json(
+      {
+        success: true,
+        messages,
+        message: "Messages fetched successfully",
+      },
+      { status: 200 }
+    );
+  } catch (error) {
+    console.error("Error fetching messages:", error);
+
+    return Response.json(
+      {
+        success: false,
+        message: "Failed to fetch messages",
+      },
+      { status: 500 }
+    );
+  }
+};
