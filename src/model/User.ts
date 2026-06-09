@@ -19,7 +19,7 @@ const MessageSchema: Schema<Message> = new Schema({
     },
     sender: {
         type: String,
-        default: "Unknown"
+        default: "Anonymous"
     }
 })
 

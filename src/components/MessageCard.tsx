@@ -28,7 +28,7 @@ import axios, { AxiosError } from "axios";
 import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { deleteMessage } from "@/store/slices/MessageSlice";
-
+import { formatDistanceToNow } from "date-fns";
 
 const MessageCard = ({ messageObj }: any) => {
 
@@ -67,9 +67,13 @@ const MessageCard = ({ messageObj }: any) => {
         <>
             <Card className="w-full md:w-70 h-36">
                 <CardHeader>
-                    <CardTitle className="text-base">{messageObj.sender}</CardTitle>
+                    <CardTitle className={`text-base ${messageObj.sender === "Anonymous"? "text-gray-400" : ""}`}>
+                        {messageObj.sender}
+                    </CardTitle>
                     <CardDescription className="text-[12px]">
-                        {new Date(messageObj.createdAt).toLocaleString()}
+                        {formatDistanceToNow(new Date(messageObj.createdAt), {
+                            addSuffix: true,
+                        })}
                     </CardDescription>
                     <CardAction>
 

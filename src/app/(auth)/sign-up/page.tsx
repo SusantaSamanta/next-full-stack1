@@ -94,8 +94,8 @@ const page = () => {
 
   return (
     <>
-      <div className='w-full h-screen flex items-center justify-center'>
-        <div className='w-full h-screen md:h-auto max-w-md border rounded-2xl p-6 shadow-xl'>
+      <div className='w-full h-screen flex items-center justify-center pt-20 md:mt-0'>
+        <div className='w-full h-full md:h-auto max-w-md rounded-2xl p-6 shadow-xl'>
 
           <form onSubmit={form.handleSubmit(onSubmit)}>
             <h1 className='mb-4 text-2xl font-bold text-center'>Sign up</h1>

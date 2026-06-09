@@ -1,7 +1,6 @@
 import UserModel from "@/model/User";
 import dbConnect from "@/lib/dbConnect";
-import { success } from "zod";
-import { getServerSession, User } from "next-auth";
+import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/[...nextauth]/options";
 
 
@@ -14,7 +13,7 @@ export const DELETE = async (request: Request) => {
             message: "Not authenticated"
         }, { status: 401 });
     }
-    
+
     const { messageId, username } = await request.json();
     if (!messageId || !username) {
         return Response.json({
